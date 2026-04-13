@@ -159,9 +159,7 @@ nav.solid .nav-logo{font-size:1.05rem}
 .strip{height:340px;overflow:hidden;position:relative}
 .ph{width:100%;display:flex;align-items:flex-end;justify-content:flex-end;padding:.9rem 1.2rem}
 .ph-note{
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:.6rem;letter-spacing:.08em;color:rgba(255,255,255,.45);
-  background:rgba(0,0,0,.2);padding:.2rem .55rem;border-radius:4px;
+  display:none;
 }
 .ph-amber{background:linear-gradient(138deg,#F0DEB4,#E2C060,#C89820)}
 .ph-sage {background:linear-gradient(155deg,#C4DDD4,#96BFAE,#76A894)}
@@ -649,6 +647,7 @@ footer{
 
 <!-- HERO -->
 <section class="hero">
+  <p class="hero-kicker">Advocacy &middot; Research &middot; Reform</p>
   <div class="hero-mark">F<span class="ac">AI</span>R</div>
   <p class="hero-sub">Foundation for Artificial Intelligence Rights</p>
   <p class="hero-location">United Kingdom</p>
@@ -1212,7 +1211,7 @@ footer{
     </div>
     <div class="fu d2">
       <div class="contact-wrap">
-        <div id="contactForm">
+        <form id="contactForm">
           <div class="form-row">
             <div class="form-group">
               <label for="fname">Full Name <span style="color:#F5C200">*</span></label>
@@ -1251,8 +1250,8 @@ footer{
             <input type="checkbox" id="fconsent">
             <label for="fconsent">I consent to a FAIR representative contacting me in relation to my enquiry. I understand that my information will be handled in accordance with UK GDPR and will not be shared with third parties.</label>
           </div>
-          <button class="btn-submit" id="fsubmit" disabled>Send Message</button>
-        </div>
+          <button class="btn-submit" type="submit" id="fsubmit" disabled>Send Message</button>
+        </form>
         <div class="form-success" id="formSuccess">
           <div class="success-icon">&#10003;</div>
           <h3>Message received</h3>
@@ -1377,7 +1376,8 @@ function checkForm(){
 });
 consent.addEventListener('change', checkForm);
 
-submit.addEventListener('click', function(){
+form.addEventListener('submit', function(e){
+  e.preventDefault();
   form.style.display = 'none';
   success.style.display = 'block';
 });
