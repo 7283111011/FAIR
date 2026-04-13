@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAIR — Foundation for AI Rights</title>
+<title>FAIR - Foundation for Artificial Intelligence Rights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&display=swap');
 
 /* ── TOKENS ── */
 :root {
@@ -47,14 +49,14 @@ body::before{
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:999;
-  height:72px;
+  height:84px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 3.5rem;
+  padding:0 4rem;
   background:transparent;
   transition:height .35s ease, background .35s ease, box-shadow .35s ease;
 }
 nav.solid{
-  height:56px;
+  height:66px;
   background:rgba(255,255,255,0.92);
   box-shadow:0 1px 0 rgba(0,0,0,0.08);
   -webkit-backdrop-filter:saturate(180%) blur(18px);
@@ -63,10 +65,10 @@ nav.solid{
 .nav-logo{
   display:flex;align-items:center;
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:1.18rem;font-weight:700;letter-spacing:.05em;
+  font-size:1.4rem;font-weight:700;letter-spacing:.05em;
   color:#1D1D1F;transition:font-size .35s ease;
 }
-nav.solid .nav-logo{font-size:1.05rem}
+nav.solid .nav-logo{font-size:1.2rem}
 .chip{
   display:inline-block;
   background-color:#F5C200;color:#1D1D1F;
@@ -77,7 +79,7 @@ nav.solid .nav-logo{font-size:1.05rem}
 .nav-links{display:flex;list-style:none;gap:2rem}
 .nav-links a{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:.8rem;font-weight:500;color:#3A3A3C;
+  font-size:.92rem;font-weight:500;color:#3A3A3C;
   transition:color .2s;
 }
 .nav-links a:hover{color:#1D1D1F}
@@ -257,13 +259,20 @@ nav.solid .nav-logo{font-size:1.05rem}
   position:relative;
 }
 .proj-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.12)}
-.proj-card-dark{background:rgba(29,29,31,.9);border-color:rgba(255,255,255,.1)}
+.proj-card-lead{
+  background:rgba(255,249,210,.55);
+  border-top:3px solid #F5C200;
+  border-color:rgba(245,194,0,.35);
+}
+.proj-card-lead .proj-cat{background-color:#FFF9D6;color:#7a5d00}
+.proj-card-lead h3{color:#1D1D1F}
+.proj-card-lead p{color:#6E6E73}
+.proj-card-lead .proj-num{color:#F5C200}
 .proj-graphic{
   height:120px;display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
 }
 .proj-graphic svg{width:44px;height:44px;color:rgba(255,255,255,.9)}
-.proj-card-dark .proj-graphic svg{color:rgba(245,194,0,.9)}
 .proj-body{padding:1.6rem 1.8rem 2rem}
 .proj-num{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
@@ -277,17 +286,14 @@ nav.solid .nav-logo{font-size:1.05rem}
   padding:.2rem .62rem;border-radius:980px;margin-bottom:.9rem;
   background-color:#FFF9D6;color:#7a5d00;
 }
-.proj-card-dark .proj-cat{background:rgba(245,194,0,.2);color:#F5C200}
 .proj-card h3{
   font-family:"Fraunces",Georgia,"Times New Roman",serif;
   font-size:1.35rem;font-weight:400;line-height:1.2;color:#1D1D1F;margin-bottom:.75rem;
 }
-.proj-card-dark h3{color:#fff}
 .proj-card p{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size:.86rem;color:#6E6E73;line-height:1.72;
 }
-.proj-card-dark p{color:rgba(255,255,255,.56)}
 /* Carousel nav */
 .carousel-nav{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2rem}
 .car-btn{
@@ -298,12 +304,9 @@ nav.solid .nav-logo{font-size:1.05rem}
   transition:background .2s,border-color .2s,transform .2s;
 }
 .car-btn:hover{background:#F5C200;border-color:#F5C200;transform:scale(1.08)}
-.dots{display:flex;gap:.5rem;align-items:center}
-.dot{
   width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.18);
   transition:background .2s,width .2s;cursor:pointer;
 }
-.dot.on{background:#F5C200;width:18px;border-radius:3px}
 
 /* ── QUOTE SPLIT ── */
 .quote-split{display:grid;grid-template-columns:1.15fr 1fr}
@@ -551,7 +554,7 @@ nav.solid .nav-logo{font-size:1.05rem}
   font-size:.9rem;color:#6E6E73;
 }
 .success-icon{
-  width:56px;height:56px;background:#F5C200;border-radius:50%;
+  width:56px;height:66px;background:#F5C200;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 1.5rem;font-size:1.4rem;
 }
@@ -653,7 +656,7 @@ footer{
   <div class="hero-mark">F<span class="ac">AI</span>R</div>
   <p class="hero-sub">Foundation for Artificial Intelligence Rights</p>
   <p class="hero-location">United Kingdom</p>
-  <p class="hero-tag">FAIR is an independent UK advocacy organisation campaigning for safety, integrity, and intellectual property rights in the age of artificial intelligence. We advance legislative reform, publish research, and lobby Parliament to protect creators, families, and individuals — ensuring the law keeps pace with the technology reshaping all of our lives.</p>
+  <p class="hero-tag">FAIR is an independent UK advocacy organisation campaigning for safety, integrity, and intellectual property rights in the age of artificial intelligence. We advance legislative reform, publish research, and lobby Parliament to protect creators, families, and individuals, ensuring the law keeps pace with the technology reshaping all of our lives.</p>
   <div class="hero-btns">
     <a href="#projects" class="btn btn-dark">Our six projects</a>
     <a href="#research" class="btn btn-ghost">Read the research</a>
@@ -679,9 +682,9 @@ footer{
     <div class="fu">
       <span class="eyebrow">Our Mission</span>
       <h2 class="display" style="margin-bottom:1.5rem">A new rights body for a <em>new kind of world.</em></h2>
-      <p class="body">FAIR is an independent advocacy organisation working to close the legal vacuum that artificial intelligence has created around intellectual property, data rights, children's safety, and creative integrity. We campaign, research, and lobby to ensure UK law protects creators, families, and individuals — not just the technology industry.</p>
-      <p class="body" style="margin-top:1rem">Artificial intelligence is reshaping creativity, commerce, and daily life at a pace that legislation has not come close to matching. Rights that artists, authors, and ordinary people have relied upon for generations are being quietly eroded — not through malice, but through a legal framework that was never designed for what AI is doing today.</p>
-      <p class="body" style="margin-top:1rem">We advance legislative reform, submit to parliamentary consultations, build coalitions with rights holders and industry bodies, and lobby Parliament directly. Our non-adversarial position — serving both creators and the AI sector — gives us standing on both sides of the debate, and makes our case for reform harder to dismiss.</p>
+      <p class="body">FAIR is an independent advocacy organisation working to close the legal vacuum that artificial intelligence has created around intellectual property, data rights, children's safety, and creative integrity. We campaign, research, and lobby to ensure UK law protects creators, families, and individuals, not just the technology industry.</p>
+      <p class="body" style="margin-top:1rem">Artificial intelligence is reshaping creativity, commerce, and daily life at a pace that legislation has not come close to matching. Rights that artists, authors, and ordinary people have relied upon for generations are being quietly eroded, not through malice, but through a legal framework that was never designed for what AI is doing today.</p>
+      <p class="body" style="margin-top:1rem">We advance legislative reform, submit to parliamentary consultations, build coalitions with rights holders and industry bodies, and lobby Parliament directly. Our non-adversarial position, serving both creators and the AI sector, gives us standing on both sides of the debate and makes our case for reform harder to dismiss.</p>
       <div class="stats">
         <div class="stat">
           <div class="stat-n">0</div>
@@ -719,7 +722,7 @@ footer{
       <div class="carousel-track" id="ctrack">
 
         <!-- 01 -->
-        <div class="proj-card proj-card-dark">
+        <div class="proj-card proj-card-lead">
           <div class="proj-graphic" style="background:linear-gradient(135deg,#2a2a2c,#1a1a1e)">
             <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <line x1="20" y1="3" x2="20" y2="37"/><line x1="5" y1="12" x2="35" y2="12"/>
@@ -825,17 +828,9 @@ footer{
         </div>
 
       </div>
-      <!-- Carousel Controls -->
-      <div class="carousel-nav">
+        <div class="carousel-nav">
         <button class="car-btn" id="cprev" aria-label="Previous">&#8592;</button>
-        <div class="dots" id="cdots">
-          <div class="dot on" data-i="0"></div>
-          <div class="dot" data-i="1"></div>
-          <div class="dot" data-i="2"></div>
-          <div class="dot" data-i="3"></div>
-          <div class="dot" data-i="4"></div>
-          <div class="dot" data-i="5"></div>
-        </div>
+        <span id="ccount" style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:600;color:#6E6E73;letter-spacing:.12em;min-width:3rem;text-align:center;">1 / 6</span>
         <button class="car-btn" id="cnext" aria-label="Next">&#8594;</button>
       </div>
     </div>
@@ -939,7 +934,7 @@ footer{
         <div class="ppanel" data-panel="2023">
           <div class="ppanel-year">2023</div>
           <div class="ppanel-title">Thaler at Supreme Court; Getty Filed</div>
-          <div class="ppanel-desc">The UK Supreme Court unanimously holds that an AI cannot be named as a patent inventor, a matter for Parliament, not the courts. Getty Images simultaneously commences the first major AI training copyright case in England and Wales against Stability AI, setting the stage for a landmark judgment.</div>
+          <div class="ppanel-desc">The UK Supreme Court unanimously holds that an AI cannot be named as a patent inventor, a matter for Parliament, not the courts. Getty Images simultaneously commences the first major AI training copyright case in the UK against Stability AI, setting the stage for a landmark judgment.</div>
           <span class="ppanel-badge">UK Supreme Court</span>
         </div>
 
@@ -954,7 +949,7 @@ footer{
           <div class="ppanel-year">2025</div>
           <div class="ppanel-title">Getty v Stability AI, Trial Judgment</div>
           <div class="ppanel-desc">Mrs Justice Smith holds that AI model weights are not infringing copies of works used for training. Getty's primary infringement claim is abandoned for lack of evidence that training occurred in the UK, exposing the enforcement gap FAIR was founded to address. Permission to appeal is granted in December 2025.</div>
-          <span class="ppanel-badge">High Court, England and Wales</span>
+          <span class="ppanel-badge">UK High Court</span>
         </div>
 
         <div class="ppanel on now" data-panel="2026">
@@ -976,7 +971,7 @@ footer{
       <div class="fu">
         <span class="eyebrow">Founding Research</span>
         <h2 class="display" style="margin-bottom:1.4rem">The intellectual foundation for <em>everything we do.</em></h2>
-        <p class="body">FAIR was founded on the arguments advanced in <em>The Alignment Problem</em>, a legal dissertation submitted to the University of Law in April 2026. It demonstrates, through rigorous statutory analysis and systematic legal database research across Westlaw UK, LexisNexis, and BAILII, why the copyright law of England and Wales currently serves neither AI developers nor the rights holders it was designed to protect.</p>
+        <p class="body">FAIR was founded on the arguments advanced in <em>The Alignment Problem</em>, a legal dissertation submitted to the University of Law in April 2026. It demonstrates, through rigorous statutory analysis and systematic legal database research across Westlaw UK, LexisNexis, and BAILII, why UK copyright law currently serves neither AI developers nor the rights holders it was designed to protect.</p>
         <p class="body" style="margin-top:1rem">The research draws on comparative analysis of EU, Japanese, and Singaporean frameworks, and on close examination of the landmark <em>Getty Images v Stability AI</em> litigation. Critically, it goes beyond copyright to show that AI developers simultaneously face exposure under trade secrets law (<em>Vestergaard Frandsen v Bestnet</em>), database rights (<em>Ryanair v PR Aviation</em>), and UK GDPR, none of which provides the clarity the government's stated aims require.</p>
         <p class="body" style="margin-top:1rem">This cumulative analysis produces four actionable legislative recommendations, the blueprint for FAIR's flagship campaign, and demonstrates that copyright reform alone cannot resolve the regulatory uncertainty confronting AI development in the UK.</p>
         <div class="meta-list">
@@ -1079,7 +1074,7 @@ footer{
         </div>
         <div class="res-item">
           <div class="res-item-name">Getty Images v Stability AI [2025] EWHC 2863 (Ch)</div>
-          <div class="res-item-sub">First AI training copyright trial in England and Wales. Model weights held not to be infringing copies. Primary claim abandoned for lack of UK training evidence. Appeal pending.</div>
+          <div class="res-item-sub">First AI training copyright trial in the UK. Model weights held not to be infringing copies. Primary claim abandoned for lack of UK training evidence. Appeal pending.</div>
           <div class="res-item-foot">
             <span class="res-tag">High Court 2025</span>
             <a class="res-btn" href="https://www.bailii.org/ew/cases/EWHC/Ch/2025/2863.html" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
@@ -1304,39 +1299,39 @@ fus.forEach(function(el){ fuObs.observe(el); });
 
 /* ── CAROUSEL ── */
 var track  = document.getElementById('ctrack');
-var dots   = document.querySelectorAll('.dot');
 var cards  = track.querySelectorAll('.proj-card');
+var ccount = document.getElementById('ccount');
 var cur    = 0;
 var total  = cards.length;
 
+function updateCount(){
+  if(ccount) ccount.textContent = (cur + 1) + ' / ' + total;
+}
+
 function getCardW(){
   if(!cards[0]) return 320;
-  return cards[0].offsetWidth + 19; /* approx gap */
+  return cards[0].offsetWidth + 19;
 }
 
 function goTo(i){
-  i = Math.max(0, Math.min(total-1, i));
+  i = Math.max(0, Math.min(total - 1, i));
   cur = i;
   track.scrollTo({left: Math.round(i * getCardW()), behavior:'smooth'});
-  dots.forEach(function(d,j){ d.classList.toggle('on', j===i); });
+  updateCount();
 }
 
-document.getElementById('cprev').addEventListener('click', function(){ goTo(cur-1); });
-document.getElementById('cnext').addEventListener('click', function(){ goTo(cur+1); });
-dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.i)); }); });
+document.getElementById('cprev').addEventListener('click', function(){ goTo(cur - 1); });
+document.getElementById('cnext').addEventListener('click', function(){ goTo(cur + 1); });
 
-/* Update dot on manual scroll */
+/* Update counter on manual swipe/scroll */
 var ticking = false;
 track.addEventListener('scroll', function(){
   if(!ticking){
     requestAnimationFrame(function(){
       var w = getCardW();
       var idx = Math.round(track.scrollLeft / w);
-      idx = Math.max(0, Math.min(total-1, idx));
-      if(idx !== cur){
-        cur = idx;
-        dots.forEach(function(d,j){ d.classList.toggle('on', j===idx); });
-      }
+      idx = Math.max(0, Math.min(total - 1, idx));
+      if(idx !== cur){ cur = idx; updateCount(); }
       ticking = false;
     });
     ticking = true;
