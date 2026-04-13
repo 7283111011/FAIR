@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAIR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5efe1;
+        --surface: #fff9ec;
+        --ink: #1f1c17;
+        --muted: #5a5248;
+        --accent: #ea6a39;
+        --accent-2: #2f7f76;
+        --shadow: 0 12px 40px rgba(31, 28, 23, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 8% 12%, rgba(234, 106, 57, 0.18), transparent 36%),
+          radial-gradient(circle at 85% 20%, rgba(47, 127, 118, 0.2), transparent 32%),
+          linear-gradient(150deg, #f8f1e3 0%, #f2ead6 45%, #f7f1e4 100%);
+        display: grid;
+        place-items: center;
+        padding: 2rem;
+      }
+
+      .card {
+        width: min(840px, 100%);
+        background: color-mix(in srgb, var(--surface), white 24%);
+        border: 2px solid rgba(31, 28, 23, 0.08);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .stripe {
+        height: 10px;
+        background: linear-gradient(90deg, var(--accent) 0%, #f6b73d 35%, var(--accent-2) 100%);
+      }
+
+      .content {
+        padding: 2.5rem;
+        animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Fraunces", serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+      }
+
+      p {
+        margin-top: 1rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        line-height: 1.65;
+        color: var(--muted);
+        max-width: 42ch;
+      }
+
+      .button-row {
+        margin-top: 1.8rem;
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+      }
+
+      a {
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 0.75rem 1.2rem;
+        font-weight: 700;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .cta {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .ghost {
+        border: 2px solid rgba(31, 28, 23, 0.2);
+        color: var(--ink);
+      }
+
+      a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(31, 28, 23, 0.16);
+      }
+
+      @keyframes rise {
+        from {
+          transform: translateY(12px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .content {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="stripe"></div>
+      <section class="content">
+        <h1>Hello from FAIR</h1>
+        <p>
+          This is your new index page. It is fully responsive and ready for you to customize with
+          sections, forms, or app content.
+        </p>
+        <div class="button-row">
+          <a class="cta" href="#">Get Started</a>
+          <a class="ghost" href="#">Learn More</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
