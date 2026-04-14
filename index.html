@@ -1438,103 +1438,129 @@ body.a11y-contrast { filter: contrast(1.45); }
 
   /* ── HERO SLIDESHOW (Sidley-style) ── */
   (function() {
-    var slides    = document.querySelectorAll('.hero-slide');
-    var bars      = document.querySelectorAll('.prog-bar');
-    var fills     = document.querySelectorAll('.prog-fill');
-    var pauseBtn  = document.getElementById('heroPause');
-    var pauseIcon = document.getElementById('pauseIcon');
-    var cur = 0;
-    var total = slides.length;
-    var DURATION = 6000; // ms per slide
-    var timer = null;
-    var fillTimer = null;
-    var paused = false;
-    var startTime = null;
-    var elapsed = 0;
+    var slides   = document.querySelectorAll('.hero-slide');
+    var bars     = document.querySelectorAll('.prog-bar');
+    var fills    = document.querySelectorAll('.prog-fill');
+    var pauseBtn = document.getElementById('heroPause');
+    var pauseIcon= document.getElementById('pauseIcon');
+    var cur      = 0;
+    var total    = slides.length;
+    var DURATION = 7000; // ms per slide — comfortable reading time
+    var timer    = null;
+    var paused   = false;
 
-    function goTo(idx, resetElapsed) {
-      slides.forEach(function(s,i) { s.classList.toggle('active', i===idx); });
-      bars.forEach(function(b,i) {
-        b.classList.toggle('active', i===idx);
-        fills[i].style.transition = 'none';
-        fills[i].style.width = i < idx ? '100%' : '0%';
+    // Show slide idx, mark bars
+    function goTo(idx) {
+      slides.forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+      bars.forEach(function(b, i) {
+        b.classList.toggle('active', i === idx);
+        // Past bars = full, future bars = empty, current handled by startFill
+        if (i < idx) {
+          fills[i].style.transition = 'none';
+          fills[i].style.width = '100%';
+        } else if (i > idx) {
+          fills[i].style.transition = 'none';
+          fills[i].style.width = '0%';
+        }
       });
       cur = idx;
-      if(resetElapsed !== false) elapsed = 0;
     }
 
+    // Animate the current bar fill over DURATION ms
     function startFill() {
       var fill = fills[cur];
+      // Step 1: snap to 0 with no transition
       fill.style.transition = 'none';
-      fill.style.width = (elapsed / DURATION * 100) + '%';
+      fill.style.width = '0%';
+      // Step 2: force reflow so browser registers the 0% before animating
+      // Double rAF ensures the reflow is committed before we add the transition
       requestAnimationFrame(function() {
-        fill.style.transition = 'width ' + (DURATION - elapsed) + 'ms linear';
-        fill.style.width = '100%';
+        requestAnimationFrame(function() {
+          fill.style.transition = 'width ' + DURATION + 'ms linear';
+          fill.style.width = '100%';
+        });
       });
     }
 
     function next() {
-      goTo((cur + 1) % total, true);
+      goTo((cur + 1) % total);
       startFill();
     }
 
-    function startTimer() {
+    function start() {
       clearInterval(timer);
-      timer = setInterval(next, DURATION);
-      startTime = Date.now() - elapsed;
-      startFill();
+      if (!paused) {
+        timer = setInterval(next, DURATION);
+        startFill();
+      }
     }
 
-    function pauseSlideshow() {
-      if(paused) return;
+    function setPauseIcon(isPaused) {
+      if (!pauseIcon) return;
+      pauseIcon.innerHTML = isPaused
+        ? '<polygon points="3,1 11,6 11,6 3,11" fill="currentColor"/>'
+        : '<rect x="2" y="1" width="3" height="10" rx="1"/><rect x="7" y="1" width="3" height="10" rx="1"/>';
+    }
+
+    function pause() {
+      if (paused) return;
       paused = true;
       clearInterval(timer);
-      elapsed = Date.now() - startTime;
+      // Freeze the fill bar at its current rendered width
       var fill = fills[cur];
-      var currentW = parseFloat(getComputedStyle(fill).width) / fill.parentElement.offsetWidth * 100;
+      var computed = parseFloat(getComputedStyle(fill).width);
+      var parentW  = fill.parentElement ? fill.parentElement.offsetWidth : 1;
       fill.style.transition = 'none';
-      fill.style.width = currentW + '%';
-      pauseIcon.innerHTML = '<polygon points="3,1 11,6 11,6 3,11" fill="currentColor"/>';
+      fill.style.width = (computed / parentW * 100).toFixed(1) + '%';
+      setPauseIcon(true);
     }
 
-    function resumeSlideshow() {
-      if(!paused) return;
+    function resume() {
+      if (!paused) return;
       paused = false;
-      startTime = Date.now() - elapsed;
-      startFill();
-      timer = setInterval(next, DURATION - elapsed);
-      pauseIcon.innerHTML = '<rect x="2" y="1" width="3" height="10" rx="1"/><rect x="7" y="1" width="3" height="10" rx="1"/>';
-      elapsed = 0;
+      clearInterval(timer); // safety clear before creating new one
+      timer = setInterval(next, DURATION);
+      // Resume fill from where it was — calculate remaining time
+      var fill = fills[cur];
+      var computed = parseFloat(getComputedStyle(fill).width);
+      var parentW  = fill.parentElement ? fill.parentElement.offsetWidth : 1;
+      var pct      = computed / parentW;
+      var remaining = Math.max(500, DURATION * (1 - pct));
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          fill.style.transition = 'width ' + remaining + 'ms linear';
+          fill.style.width = '100%';
+        });
+      });
+      setPauseIcon(false);
     }
 
-    // Click on progress bars to jump
+    // Click bars to jump to slide
     bars.forEach(function(bar) {
       bar.addEventListener('click', function() {
         var idx = parseInt(bar.dataset.index);
-        clearInterval(timer);
-        elapsed = 0;
         paused = false;
-        goTo(idx, true);
-        startTimer();
-        pauseIcon.innerHTML = '<rect x="2" y="1" width="3" height="10" rx="1"/><rect x="7" y="1" width="3" height="10" rx="1"/>';
+        goTo(idx);
+        start();
+        setPauseIcon(false);
       });
     });
 
     // Pause button
-    if(pauseBtn) {
+    if (pauseBtn) {
       pauseBtn.addEventListener('click', function() {
-        if(paused) { resumeSlideshow(); } else { pauseSlideshow(); }
+        if (paused) { resume(); } else { pause(); }
       });
     }
 
-    // Start
-    goTo(0, true);
-    startTimer();
-
-    // Pause when tab not visible
+    // Pause when tab hidden, resume when visible — NO timer stacking
     document.addEventListener('visibilitychange', function() {
-      if(document.hidden) { pauseSlideshow(); } else { resumeSlideshow(); }
+      if (document.hidden) { pause(); } else { resume(); }
     });
+
+    // Kick off
+    goTo(0);
+    start();
   })();
 
 </script>
