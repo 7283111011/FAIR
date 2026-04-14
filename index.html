@@ -6,13 +6,12 @@
 <title>FAIR - Foundation for Artificial Intelligence Rights</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 
 /* ── TOKENS ── */
 :root {
   --sys: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --ser: "Playfair Display", Georgia, serif;
   --gold: #F5C200;
   --ink:  #1D1D1F;
   --ink2: #3A3A3C;
@@ -45,30 +44,244 @@ body::before{
     radial-gradient(ellipse 60% 55% at 50% 50%, rgba(222,210,238,0.5)  0%,transparent 55%);
   background-color:#EDE8F2;
 }
+/* ── ANNOUNCEMENT BAR ── */
+.announce-bar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:34px;
+  background:#12182A;
+  display:flex;align-items:center;overflow:hidden;
+}
+.announce-bar-track{
+  display:flex;align-items:center;
+  white-space:nowrap;
+  animation:tickerScroll 28s linear infinite;
+}
+.announce-bar-track:hover{animation-play-state:paused}
+.announce-item{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.65);padding:0 2.5rem;
+  text-decoration:none;white-space:nowrap;
+  transition:color .2s;
+}
+.announce-item:hover{color:#ffffff}
+.announce-dot{
+  display:inline-block;width:4px;height:4px;border-radius:50%;
+  background:rgba(255,255,255,.5);vertical-align:middle;
+}
+@keyframes tickerScroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* ── NAV PILL (CIPA-inspired) ── */
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;
+  background:rgba(255,255,255,0.88);
+  border-radius:980px;
+  padding:0 2rem;
+  height:52px;
+  box-shadow:0 2px 20px rgba(0,0,0,0.1);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  backdrop-filter:blur(18px) saturate(180%);
+  border:1px solid rgba(0,0,0,0.08);
+  transition:box-shadow .35s, background .35s;
+}
+.nav-inner:hover{box-shadow:0 4px 28px rgba(0,0,0,.14)}
+
+
+
+
+.latest-arc svg{width:100%;height:100%}
+
+
+
+/* ── ACCESSIBILITY TOOLBAR (CIPA-inspired) ── */
+.a11y-btn{
+  position:fixed;bottom:2rem;left:2rem;z-index:1001;
+  width:46px;height:46px;border-radius:50%;
+  background:#0D1B2E;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+  transition:transform .2s,box-shadow .2s;
+}
+.a11y-btn:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.a11y-btn svg{width:24px;height:24px;color:#ffffff}
+.a11y-panel{
+  position:fixed;bottom:5.5rem;left:2rem;z-index:1001;
+  background:#ffffff;border-radius:16px;padding:1.4rem;
+  box-shadow:0 8px 40px rgba(0,0,0,.15);
+  border:1px solid rgba(0,0,0,.08);
+  min-width:200px;
+  display:none;
+}
+.a11y-panel.open{display:block;animation:fadeIn .2s ease}
+.a11y-title{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#6E6E73;margin-bottom:1rem;
+}
+.a11y-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.8rem;
+}
+.a11y-row:last-child{margin-bottom:0}
+.a11y-row-label{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.82rem;font-weight:500;color:#1D1D1F;
+}
+.a11y-controls{display:flex;gap:.4rem;align-items:center}
+.a11y-ctrl{
+  width:30px;height:30px;border-radius:8px;border:1.5px solid rgba(0,0,0,.14);
+  background:transparent;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:-apple-system,sans-serif;font-size:.8rem;font-weight:600;color:#1D1D1F;
+  transition:background .15s,border-color .15s;
+}
+.a11y-ctrl:hover{background:#0D1B2E;border-color:#0D1B2E;color:#fff}
+.a11y-toggle{
+  width:44px;height:24px;border-radius:980px;
+  border:none;cursor:pointer;
+  background:rgba(0,0,0,.12);position:relative;
+  transition:background .2s;
+}
+.a11y-toggle.on{background:#0D1B2E}
+.a11y-toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;background:#fff;
+  transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2);
+}
+.a11y-toggle.on::after{transform:translateX(20px)}
+
+/* Accessibility states applied to body */
+body.a11y-large { font-size: 110%; }
+body.a11y-contrast{ filter:contrast(1.4) }
+body.a11y-dyslexia{ font-family:"Comic Sans MS","Arial Rounded MT Bold",cursive !important }
+body.a11y-dyslexia *:not(.chip):not(.hero-mark):not(.hero-wordmark){ font-family:"Comic Sans MS","Arial Rounded MT Bold",cursive !important }
+
+/* ── RESOURCE TABS & CARDS (CIPA-inspired) ── */
+.res-tabs{
+  display:flex;gap:0;margin-bottom:2.5rem;
+  border-bottom:2px solid #E8E8EE;
+}
+.res-tab{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.82rem;font-weight:600;
+  padding:.75rem 1.8rem;
+  background:none;border:none;cursor:pointer;
+  color:#6E6E73;
+  border-bottom:2px solid transparent;
+  margin-bottom:-2px;
+  transition:color .2s,border-color .2s;
+  letter-spacing:.02em;
+}
+.res-tab:hover{color:#1D1D1F}
+.res-tab.active{color:#0D1B2E;border-bottom-color:#0D1B2E}
+.res-panel{display:none}
+.res-panel.active{display:block;animation:fadeIn .25s ease}
+.res-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+}
+.res-rcard{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.4rem 1.2rem;
+  background:#ffffff;border:1px solid rgba(0,0,0,.07);
+  border-radius:14px;
+  text-decoration:none;
+  transition:box-shadow .25s,transform .25s,border-color .25s;
+}
+.res-rcard:hover{
+  box-shadow:0 8px 28px rgba(0,0,0,.09);
+  transform:translateY(-2px);
+  border-color:rgba(13,27,46,.25);
+}
+.res-rcard-icon{
+  width:44px;height:44px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#F5F4F0;border-radius:10px;
+  color:#6E6E73;
+  transition:background .2s,color .2s;
+}
+.res-rcard:hover .res-rcard-icon{background:#E8EDF5;color:#0D1B2E}
+.res-rcard-icon svg{width:22px;height:22px}
+.res-rcard-body{flex:1;min-width:0}
+.res-rcard-title{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.82rem;font-weight:600;color:#1D1D1F;
+  margin-bottom:.22rem;line-height:1.35;
+}
+.res-rcard-sub{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.72rem;color:#6E6E73;line-height:1.45;
+}
+.res-rcard-arrow{
+  flex-shrink:0;color:#D8D8DC;
+  transition:color .2s,transform .2s;
+}
+.res-rcard:hover .res-rcard-arrow{color:#0D1B2E;transform:translateX(3px)}
+.res-rcard-arrow svg{width:16px;height:16px}
+@media(max-width:900px){
+  .res-cards{grid-template-columns:1fr}
+  .res-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+
+
+/* ── COOKIE BANNER ── */
+.cookie-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:1002;
+  background:rgba(13,27,46,.97);
+  padding:1.2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.08);
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.cookie-bar.show{transform:translateY(0)}
+.cookie-text{
+  font-family:-apple-system,BlinkMacSystemFont,"Manrope","Helvetica Neue",Arial,sans-serif;
+  font-size:.82rem;color:rgba(255,255,255,.72);line-height:1.55;flex:1;min-width:200px;
+}
+.cookie-text a{color:rgba(255,255,255,.9);text-decoration:underline;text-underline-offset:2px}
+.cookie-btns{display:flex;gap:.7rem;flex-shrink:0}
+.cookie-btn{
+  font-family:-apple-system,BlinkMacSystemFont,"Manrope","Helvetica Neue",Arial,sans-serif;
+  font-size:.75rem;font-weight:600;padding:.55rem 1.3rem;
+  border-radius:980px;cursor:pointer;border:none;
+  transition:background .2s,color .2s,transform .15s;
+  white-space:nowrap;
+}
+.cookie-btn:hover{transform:scale(1.04)}
+.cookie-btn-accept{background:#ffffff;color:#0D1B2E}
+.cookie-btn-accept:hover{background:#f0f0f0}
+.cookie-btn-reject{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2)}
+.cookie-btn-reject:hover{background:rgba(255,255,255,.2)}
+@media(max-width:600px){
+  .cookie-bar{padding:1rem 1.5rem;flex-direction:column;gap:1rem}
+  .cookie-btns{width:100%}
+  .cookie-btn{flex:1;text-align:center}
+}
 
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:999;
-  height:84px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 4rem;
+  position:fixed;top:34px;left:0;right:0;z-index:999;
+  height:72px;
+  display:flex;align-items:center;
+  padding:0 2.5rem;
   background:transparent;
-  transition:height .35s ease, background .35s ease, box-shadow .35s ease;
+  transition:height .35s ease;
 }
 nav.solid{
   height:66px;
-  background:rgba(255,255,255,0.92);
-  box-shadow:0 1px 0 rgba(0,0,0,0.08);
-  -webkit-backdrop-filter:saturate(180%) blur(18px);
-  backdrop-filter:saturate(180%) blur(18px);
 }
 .nav-logo{
   display:flex;align-items:center;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:1.4rem;font-weight:700;letter-spacing:.05em;
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:1.25rem;font-weight:800;letter-spacing:.08em;
   color:#1D1D1F;transition:font-size .35s ease;
 }
-nav.solid .nav-logo{font-size:1.2rem}
+nav.solid .nav-logo{font-size:1.1rem}
 .chip{
   display:inline-block;
   background-color:#F5C200;color:#1D1D1F;
@@ -88,7 +301,7 @@ nav.solid .nav-logo{font-size:1.2rem}
 .hero{
   min-height:100vh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:9rem 2rem 7rem;
+  text-align:center;padding:10.5rem 2rem 7rem;
   position:relative;
 }
 .hero-kicker{
@@ -98,24 +311,24 @@ nav.solid .nav-logo{font-size:1.2rem}
   opacity:0;animation:rise .9s .1s cubic-bezier(.22,1,.36,1) forwards;
 }
 .hero-mark{
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(5.5rem,18vw,13rem);font-weight:700;letter-spacing:-.04em;line-height:1;
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(5.5rem,18vw,13rem);font-weight:800;
+  letter-spacing:-.04em;line-height:1;
   color:#1D1D1F;
   display:flex;align-items:center;justify-content:center;
   opacity:0;animation:rise .9s .25s cubic-bezier(.22,1,.36,1) forwards;
 }
 .hero-mark .ac{
   background-color:#F5C200;color:#1D1D1F;
-  padding:.02em .08em;border-radius:10px;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight:700;font-size:inherit;letter-spacing:-.04em;
-  display:inline-flex;align-items:center;line-height:.95;
+  padding:.01em .08em;border-radius:8px;
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight:800;font-size:inherit;letter-spacing:-.04em;
+  display:inline-flex;align-items:center;line-height:1;
 }
 .hero-sub{
-  font-family:"Playfair Display",Georgia,serif;
-  font-weight:400;font-style:italic;
-  font-size:clamp(1.1rem,2.2vw,1.65rem);color:#3A3A3C;margin-top:1.2rem;
-  letter-spacing:.01em;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-weight:300;font-size:clamp(1rem,2vw,1.45rem);
+  color:#3A3A3C;margin-top:1rem;letter-spacing:.04em;
   opacity:0;animation:rise .9s .4s cubic-bezier(.22,1,.36,1) forwards;
 }
 .hero-location{
@@ -127,7 +340,7 @@ nav.solid .nav-logo{font-size:1.2rem}
 .hero-tag{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size:clamp(.92rem,1.7vw,1.12rem);font-weight:400;color:#3A3A3C;
-  max-width:520px;margin:1.5rem auto 0;line-height:1.6;
+  max-width:720px;margin:1.5rem auto 0;line-height:1.65;
   opacity:0;animation:rise .9s .65s cubic-bezier(.22,1,.36,1) forwards;
 }
 .hero-btns{
@@ -153,7 +366,7 @@ nav.solid .nav-logo{font-size:1.2rem}
 }
 .scroll-hint::after{
   content:'';display:block;width:1px;height:26px;
-  background-color:#F5C200;margin:.5rem auto 0;
+  background-color:#0D1B2E;margin:.5rem auto 0;
   animation:linePulse 2s 1.5s ease-in-out infinite;
 }
 
@@ -172,11 +385,22 @@ nav.solid .nav-logo{font-size:1.2rem}
 .strip .ph{height:100%}
 
 /* ── STATEMENT ── */
-.statement{background-color:#F5C200;padding:5rem 2rem;text-align:center}
+.statement{
+  background-color:#12182A;
+  padding:5rem 2rem;
+  text-align:center;
+  position:relative;
+}
+.statement::before{
+  content:'';display:block;
+  width:3rem;height:2px;background:rgba(255,255,255,.3);
+  margin:0 auto 2.5rem;
+}
 .statement p{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:clamp(1.3rem,2.9vw,2.1rem);font-weight:400;font-style:italic;
-  line-height:1.42;color:#1D1D1F;max-width:800px;margin:0 auto;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(1.2rem,2.6vw,1.9rem);font-weight:300;font-style:normal;
+  line-height:1.5;color:rgba(255,255,255,.88);max-width:840px;margin:0 auto;
+  letter-spacing:-.01em;
 }
 
 /* ── SHARED ── */
@@ -190,13 +414,15 @@ nav.solid .nav-logo{font-size:1.2rem}
   border:1px solid rgba(255,255,255,.7);
 }
 .eyebrow{
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#6E6E73;
-  margin-bottom:1.1rem;display:block;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-size:.64rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+  color:#6E6E73;
+  margin-bottom:.85rem;display:block;
 }
 .display{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:clamp(2rem,4.2vw,3.3rem);font-weight:400;line-height:1.12;color:#1D1D1F;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(2rem,4.2vw,3.3rem);font-weight:300;letter-spacing:-.025em;
+  line-height:1.1;color:#1D1D1F;
 }
 .display em{font-style:italic}
 .display strong{font-weight:600;font-style:normal}
@@ -260,14 +486,9 @@ nav.solid .nav-logo{font-size:1.2rem}
 }
 .proj-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.12)}
 .proj-card-lead{
-  background:rgba(255,249,210,.55);
-  border-top:3px solid #F5C200;
-  border-color:rgba(245,194,0,.35);
+  background:rgba(255,255,255,.82);
+  border-top:2px solid #0D1B2E;
 }
-.proj-card-lead .proj-cat{background-color:#FFF9D6;color:#7a5d00}
-.proj-card-lead h3{color:#1D1D1F}
-.proj-card-lead p{color:#6E6E73}
-.proj-card-lead .proj-num{color:#F5C200}
 .proj-graphic{
   height:120px;display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
@@ -277,52 +498,53 @@ nav.solid .nav-logo{font-size:1.2rem}
 .proj-num{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   display:block;font-size:.62rem;font-weight:600;letter-spacing:.2em;
-  text-transform:uppercase;color:#F5C200;margin-bottom:1.2rem;
+  text-transform:uppercase;color:#0D1B2E;margin-bottom:1.2rem;
 }
 .proj-cat{
   display:inline-block;
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size:.61rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   padding:.2rem .62rem;border-radius:980px;margin-bottom:.9rem;
-  background-color:#FFF9D6;color:#7a5d00;
+  background-color:#EEF1F8;color:#0D1B2E;
 }
 .proj-card h3{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:1.35rem;font-weight:400;line-height:1.2;color:#1D1D1F;margin-bottom:.75rem;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-size:1.28rem;font-weight:600;line-height:1.2;color:#1D1D1F;margin-bottom:.75rem;
 }
 .proj-card p{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size:.86rem;color:#6E6E73;line-height:1.72;
 }
 /* Carousel nav */
-.carousel-nav{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2rem}
-.car-btn{
-  width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(0,0,0,.18);
-  background:rgba(255,255,255,.8);cursor:pointer;
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:2.5rem;margin-top:2.5rem}
+.carr-arrow{
+  background:none;border:none;cursor:pointer;padding:.5rem;
   display:flex;align-items:center;justify-content:center;
-  font-size:1rem;color:#1D1D1F;
-  transition:background .2s,border-color .2s,transform .2s;
+  color:#3A3A3C;
+  transition:color .2s,transform .25s cubic-bezier(.22,1,.36,1);
 }
-.car-btn:hover{background:#F5C200;border-color:#F5C200;transform:scale(1.08)}
+.carr-arrow:hover{color:#0D1B2E;transform:translateX(-3px)}
+.carr-arrow.next:hover{color:#0D1B2E;transform:translateX(3px)}
+.carr-arrow svg{width:36px;height:20px;display:block}
 
 /* ── QUOTE SPLIT ── */
 .quote-split{display:grid;grid-template-columns:1.15fr 1fr}
 .q-photo{height:460px;overflow:hidden}
 .q-photo .ph{height:100%}
 .q-side{
-  background-color:#F5C200;
+  background-color:#0D1B2E;
   display:flex;flex-direction:column;justify-content:center;
   padding:5rem 4.5rem;
 }
 .q-side blockquote{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:400;font-style:italic;
-  line-height:1.45;color:#1D1D1F;margin-bottom:2rem;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(1.2rem,2.4vw,1.75rem);font-weight:300;font-style:normal;
+  line-height:1.55;color:#ffffff;margin-bottom:2rem;letter-spacing:-.01em;
 }
 .q-side cite{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size:.74rem;font-style:normal;font-weight:600;
-  letter-spacing:.08em;color:rgba(29,29,31,.55);text-transform:uppercase;
+  font-size:.74rem;font-style:normal;font-weight:500;
+  letter-spacing:.08em;color:rgba(255,255,255,.45);text-transform:uppercase;
 }
 
 /* ── TIMELINE PIANO ── */
@@ -346,8 +568,8 @@ nav.solid .nav-logo{font-size:1.2rem}
   user-select:none;
 }
 .pkey:last-child{border-right:none}
-.pkey:hover{background:rgba(245,194,0,.15);color:#1D1D1F}
-.pkey.active{background:#F5C200;color:#1D1D1F}
+.pkey:hover{background:rgba(13,27,46,.08);color:#0D1B2E}
+.pkey.active{background:#0D1B2E;color:#ffffff}
 /* Content panel */
 .piano-stage{
   margin-top:1.2rem;
@@ -362,11 +584,11 @@ nav.solid .nav-logo{font-size:1.2rem}
 .ppanel{display:none;animation:fadeIn .3s ease}
 .ppanel.on{display:block}
 .ppanel-year{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:3rem;font-weight:600;color:#F5C200;line-height:1;margin-bottom:.5rem;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-size:3rem;font-weight:600;color:#0D1B2E;line-height:1;margin-bottom:.5rem;
 }
 .ppanel-title{
-  font-family:"Playfair Display",Georgia,serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
   font-size:1.35rem;font-weight:400;color:#1D1D1F;margin-bottom:.8rem;line-height:1.25;
 }
 .ppanel-desc{
@@ -380,8 +602,8 @@ nav.solid .nav-logo{font-size:1.2rem}
   padding:.18rem .6rem;border-radius:980px;
   background-color:rgba(0,0,0,.06);color:#6E6E73;
 }
-.ppanel.now .ppanel-year{color:#F5C200}
-.ppanel.now .ppanel-badge{background:#F5C200;color:#1D1D1F}
+.ppanel.now .ppanel-year{color:#0D1B2E}
+.ppanel.now .ppanel-badge{background:#0D1B2E;color:#ffffff}
 
 /* ── RESEARCH ── */
 .research-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
@@ -390,7 +612,7 @@ nav.solid .nav-logo{font-size:1.2rem}
 .meta-k{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size:.63rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  color:#F5C200;min-width:80px;flex-shrink:0;
+  color:#0D1B2E;min-width:80px;flex-shrink:0;
 }
 .meta-v{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
@@ -406,7 +628,7 @@ nav.solid .nav-logo{font-size:1.2rem}
   color:#6E6E73;margin-bottom:1.5rem;
 }
 .rec-title{
-  font-family:"Playfair Display",Georgia,serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
   font-size:1.1rem;font-weight:400;font-style:italic;color:#1D1D1F;
   margin-bottom:.36rem;line-height:1.32;
 }
@@ -422,7 +644,7 @@ nav.solid .nav-logo{font-size:1.2rem}
   font-size:.84rem;color:#3A3A3C;line-height:1.55;
 }
 .rec-items li:last-child{border-bottom:none}
-.rec-n{font-size:.62rem;font-weight:700;color:#F5C200;min-width:2rem;padding-top:.12rem;flex-shrink:0}
+.rec-n{font-size:.62rem;font-weight:700;color:#0D1B2E;min-width:2rem;padding-top:.12rem;flex-shrink:0}
 
 /* ── RESOURCES ── */
 .res-intro{margin-bottom:3.5rem}
@@ -432,13 +654,14 @@ nav.solid .nav-logo{font-size:1.2rem}
   gap:2.5rem;
   align-items:start;
 }
+.res-col{}
 .res-col-head{
   display:flex;flex-direction:column;gap:.3rem;
   margin-bottom:1.5rem;padding-bottom:.9rem;
-  border-bottom:2.5px solid #F5C200;
+  border-bottom:2.5px solid #0D1B2E;
 }
 .res-col-title{
-  font-family:"Playfair Display",Georgia,serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
   font-size:1.2rem;font-weight:400;color:#1D1D1F;
 }
 .res-col-sub{
@@ -476,7 +699,7 @@ nav.solid .nav-logo{font-size:1.2rem}
   transition:background .2s,border-color .2s,color .2s,transform .15s;
   white-space:nowrap;
 }
-.res-btn:hover{background:#F5C200;border-color:#F5C200;color:#1D1D1F;transform:scale(1.04)}
+.res-btn:hover{background:#0D1B2E;border-color:#0D1B2E;color:#ffffff;transform:scale(1.04)}
 .res-btn svg{width:10px;height:10px;flex-shrink:0}
 
 /* ── CONTACT FORM ── */
@@ -510,19 +733,19 @@ nav.solid .nav-logo{font-size:1.2rem}
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus{
-  border-color:#F5C200;
-  box-shadow:0 0 0 3px rgba(245,194,0,.18);
+  border-color:#0D1B2E;
+  box-shadow:0 0 0 3px rgba(13,27,46,.12);
 }
 .form-group textarea{resize:vertical;min-height:120px;line-height:1.6}
 .form-check{
   display:flex;align-items:flex-start;gap:.75rem;
   margin:1.5rem 0 1.8rem;padding:1.2rem 1.4rem;
-  background:rgba(245,194,0,.1);border-radius:12px;
-  border:1px solid rgba(245,194,0,.25);
+  background:rgba(13,27,46,.04);border-radius:12px;
+  border:1px solid rgba(13,27,46,.12);
 }
 .form-check input[type=checkbox]{
   width:18px;height:18px;margin-top:.15rem;flex-shrink:0;
-  accent-color:#F5C200;cursor:pointer;
+  accent-color:#0D1B2E;cursor:pointer;
 }
 .form-check label{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
@@ -542,7 +765,7 @@ nav.solid .nav-logo{font-size:1.2rem}
   display:none;text-align:center;padding:2rem 0;
 }
 .form-success h3{
-  font-family:"Playfair Display",Georgia,serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
   font-size:1.6rem;font-weight:400;color:#1D1D1F;margin-bottom:.6rem;
 }
 .form-success p{
@@ -550,26 +773,43 @@ nav.solid .nav-logo{font-size:1.2rem}
   font-size:.9rem;color:#6E6E73;
 }
 .success-icon{
-  width:56px;height:66px;background:#F5C200;border-radius:50%;
+  width:56px;height:56px;background:#0D1B2E;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   margin:0 auto 1.5rem;font-size:1.4rem;
 }
 
 /* ── CLOSING ── */
-.closing{position:relative;height:320px;overflow:hidden}
-.closing .ph{height:100%}
-.closing-over{
+.closing{
+  background:linear-gradient(145deg, #0A1220 0%, #12182A 40%, #0D1F35 100%);
+  padding:7rem 2rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.closing::before{
+  content:'';
   position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:2rem;
-  background:rgba(10,12,20,.44);
+  background:radial-gradient(ellipse 80% 60% at 30% 50%, rgba(255,255,255,.03) 0%, transparent 60%);
+  pointer-events:none;
 }
-.closing-over h2{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:clamp(1.8rem,5vw,3rem);font-weight:400;font-style:italic;
-  color:#fff;line-height:1.28;max-width:560px;
+.closing-inner{
+  max-width:780px;margin:0 auto;
 }
-.closing-over h2 strong{font-weight:600;font-style:normal}
+.closing h2{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  font-weight:300;letter-spacing:-.025em;
+  font-size:clamp(2rem,4.5vw,3.6rem);
+  color:#ffffff;line-height:1.25;margin-bottom:2rem;
+}
+.closing h2 em{font-style:normal;color:#ffffff;font-weight:600}
+.closing-rule{
+  width:3rem;height:1px;background:rgba(255,255,255,.3);margin:0 auto 2rem;
+}
+.closing-sub{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:.88rem;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(255,255,255,.38);
+}
 
 /* ── FOOTER ── */
 footer{
@@ -587,7 +827,7 @@ footer{
   font-size:.75rem;color:rgba(255,255,255,.32);text-align:center;line-height:1.7;flex:1;
 }
 .foot-right{
-  font-family:"Playfair Display",Georgia,serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;
   font-style:italic;font-size:.9rem;color:rgba(255,255,255,.36);
 }
 
@@ -628,14 +868,32 @@ footer{
   footer{flex-direction:column;text-align:center;padding:3rem 1.5rem}
   .foot-right{text-align:center}
   .strip{height:200px}
-  .closing{height:220px}
 }
 </style>
 </head>
 <body>
 
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar" aria-label="Latest announcements">
+  <div class="announce-track" id="atrack">
+          <div class="announce-bar-track">
+        <a class="announce-item" href="https://uk.finance.yahoo.com/news/openai-pauses-uk-data-centre-135030881.html" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;OpenAI pauses Stargate UK data centre project over regulation &middot; Reuters</a>
+        <a class="announce-item" href="https://www.gov.uk/government/publications/report-on-copyright-and-artificial-intelligence" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;UK publishes Report on Copyright and Artificial Intelligence &middot; DSIT</a>
+        <a class="announce-item" href="https://www.bailii.org/ew/cases/EWHC/Ch/2025/3343.html" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;Getty Images v Stability AI: permission to appeal granted &middot; December 2025</a>
+        <a class="announce-item" href="https://artificialintelligenceact.eu/article/53/" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;EU AI Act Article 53 training-data disclosure obligations now in force</a>
+        <a class="announce-item" href="https://www.gov.uk/government/consultations/copyright-and-artificial-intelligence" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;IPO consults on removing Section 9(3) CDPA without replacement &middot; December 2024</a>
+        <a class="announce-item" href="https://uk.finance.yahoo.com/news/openai-pauses-uk-data-centre-135030881.html" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;OpenAI pauses Stargate UK data centre project over regulation &middot; Reuters</a>
+        <a class="announce-item" href="https://www.gov.uk/government/publications/report-on-copyright-and-artificial-intelligence" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;UK publishes Report on Copyright and Artificial Intelligence &middot; DSIT</a>
+        <a class="announce-item" href="https://www.bailii.org/ew/cases/EWHC/Ch/2025/3343.html" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;Getty Images v Stability AI: permission to appeal granted &middot; December 2025</a>
+        <a class="announce-item" href="https://artificialintelligenceact.eu/article/53/" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;EU AI Act Article 53 training-data disclosure obligations now in force</a>
+        <a class="announce-item" href="https://www.gov.uk/government/consultations/copyright-and-artificial-intelligence" target="_blank" rel="noopener"><span class="announce-dot"></span>&nbsp;&nbsp;IPO consults on removing Section 9(3) CDPA without replacement &middot; December 2024</a>
+      </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="nav">
+  <div class="nav-inner">
   <a href="#" class="nav-logo">F<span class="chip">AI</span>R</a>
   <ul class="nav-links">
     <li><a href="#mission">Mission</a></li>
@@ -645,6 +903,7 @@ footer{
     <li><a href="#resources">Resources</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -657,49 +916,9 @@ footer{
     <a href="#projects" class="btn btn-dark">Our six projects</a>
     <a href="#research" class="btn btn-ghost">Read the research</a>
   </div>
-  <span class="scroll-hint">Scroll</span>
-</section>
-
-<!-- PHOTO STRIP -->
-<div class="strip">
-  <div class="ph ph-amber">
-    <span class="ph-note">Replace: Getty "UK Parliament Westminster golden hour aerial"</span>
-  </div>
-</div>
-
-<!-- STATEMENT -->
-<div class="statement">
-  <p>"The copyright law of England and Wales is not in alignment with the government's stated aims, but it can be. The question is whether Parliament will act before further investment decisions make the case impossible to ignore."</p>
-</div>
-
-<!-- MISSION -->
-<section id="mission">
-  <div class="mission-grid">
-    <div class="fu">
-      <span class="eyebrow">Our Mission</span>
-      <h2 class="display" style="margin-bottom:1.5rem">A new rights body for a <em>new kind of world.</em></h2>
-      <p class="body">FAIR is an independent advocacy organisation working to close the legal vacuum that artificial intelligence has created around intellectual property, data rights, children's safety, and creative integrity. We campaign, research, and lobby to ensure UK law protects creators, families, and individuals, not just the technology industry.</p>
-      <p class="body" style="margin-top:1rem">Artificial intelligence is reshaping creativity, commerce, and daily life at a pace that legislation has not come close to matching. Rights that artists, authors, and ordinary people have relied upon for generations are being quietly eroded, not through malice, but through a legal framework that was never designed for what AI is doing today.</p>
-      <p class="body" style="margin-top:1rem">We advance legislative reform, submit to parliamentary consultations, build coalitions with rights holders and industry bodies, and lobby Parliament directly. Our non-adversarial position, serving both creators and the AI sector, gives us standing on both sides of the debate and makes our case for reform harder to dismiss.</p>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-n">0</div>
-          <div class="stat-l">Reported cases where Section 29A CDPA was ever applied by a court</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">4</div>
-          <div class="stat-l">Concrete legislative reforms we are actively campaigning for</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">2026</div>
-          <div class="stat-l">The year Parliament must act before further investment leaves the UK</div>
-        </div>
-      </div>
     </div>
     <div class="mission-photo fu d2">
-      <div class="ph ph-sage" style="height:100%">
-        <span class="ph-note">Getty: "barrister reading documents warm office UK"</span>
-      </div>
+      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80" alt="Advocate working at desk" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
     </div>
   </div>
 </section>
@@ -719,15 +938,14 @@ footer{
 
         <!-- 01 -->
         <div class="proj-card proj-card-lead">
-          <div class="proj-graphic" style="background:linear-gradient(135deg,#2a2a2c,#1a1a1e)">
-            <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <div class="proj-graphic" style="background:linear-gradient(135deg,#EAEAF2,#DDDDE8)">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#5A5A7A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <line x1="20" y1="3" x2="20" y2="37"/><line x1="5" y1="12" x2="35" y2="12"/>
               <path d="M5 12 L3 22 H11 L9 12"/><path d="M35 12 L37 22 H29 L31 12"/>
               <line x1="14" y1="37" x2="26" y2="37"/>
             </svg>
           </div>
           <div class="proj-body">
-            <span class="proj-num">01 Flagship</span>
             <span class="proj-cat">Law &amp; Policy</span>
             <h3>Legislative Reform</h3>
             <p>UK copyright law fails both AI developers and rights holders. We campaign for four legislative changes: a commercial TDM exception, mandatory training-data transparency, a market-access provision, and reform of Section 9(3) CDPA.</p>
@@ -736,15 +954,14 @@ footer{
 
         <!-- 02 -->
         <div class="proj-card">
-          <div class="proj-graphic" style="background:linear-gradient(135deg,#FFF3D0,#FFE090)">
-            <svg viewBox="0 0 40 40" fill="none" stroke="#C89820" stroke-width="1.8" stroke-linecap="round">
+          <div class="proj-graphic" style="background:linear-gradient(135deg,#F5EFE0,#EAE0CC)">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#8A7050" stroke-width="1.8" stroke-linecap="round">
               <path d="M4 20 C10 8 30 8 36 20 C30 32 10 32 4 20Z"/>
               <circle cx="20" cy="20" r="5"/>
-              <circle cx="20" cy="20" r="2" fill="#C89820"/>
+              <circle cx="20" cy="20" r="2" fill="#8A7050"/>
             </svg>
           </div>
           <div class="proj-body">
-            <span class="proj-num">02</span>
             <span class="proj-cat">Creators</span>
             <h3>Creator Rights Watch</h3>
             <p>A monitoring programme tracking how AI companies use the work of authors, journalists, artists, and musicians. We document infringement patterns, publish findings, and support creators in enforcement.</p>
@@ -763,7 +980,6 @@ footer{
             </svg>
           </div>
           <div class="proj-body">
-            <span class="proj-num">03</span>
             <span class="proj-cat">Transparency</span>
             <h3>Transparent AI</h3>
             <p>You have the right to know if your work trained an AI model. We campaign for mandatory disclosure equivalent to Article 53 of the EU AI Act, and provide tools enabling rights holders to query training datasets and verify opt-outs.</p>
@@ -779,7 +995,6 @@ footer{
             </svg>
           </div>
           <div class="proj-body">
-            <span class="proj-num">04</span>
             <span class="proj-cat">Safeguarding</span>
             <h3>Child Safe AI</h3>
             <p>Children's voices, images, and creative work are being ingested into AI systems with no meaningful protection. We advocate for special-category safeguards, work with UK schools and families, and monitor platform compliance with UK GDPR.</p>
@@ -797,7 +1012,6 @@ footer{
             </svg>
           </div>
           <div class="proj-body">
-            <span class="proj-num">05</span>
             <span class="proj-cat">Individual Rights</span>
             <h3>Personal Data Rights</h3>
             <p>Every individual whose personal data was processed in AI training has rights, and almost nobody knows how to exercise them. We publish plain-language guidance and support individuals with data subject access requests.</p>
@@ -806,8 +1020,8 @@ footer{
 
         <!-- 06 -->
         <div class="proj-card">
-          <div class="proj-graphic" style="background:linear-gradient(135deg,#FFF8E8,#FFE8A0)">
-            <svg viewBox="0 0 40 40" fill="none" stroke="#B07820" stroke-width="1.8" stroke-linecap="round">
+          <div class="proj-graphic" style="background:linear-gradient(135deg,#F0EEE8,#E4E0D4)">
+            <svg viewBox="0 0 40 40" fill="none" stroke="#7A6A50" stroke-width="1.8" stroke-linecap="round">
               <path d="M14 30 C14 24 10 20 10 14 A10 10 0 1 1 30 14 C30 20 26 24 26 30"/>
               <line x1="14" y1="33" x2="26" y2="33"/><line x1="15" y1="36" x2="25" y2="36"/>
               <line x1="20" y1="6" x2="20" y2="2"/>
@@ -816,7 +1030,6 @@ footer{
             </svg>
           </div>
           <div class="proj-body">
-            <span class="proj-num">06</span>
             <span class="proj-cat">Public Education</span>
             <h3>AI Awareness</h3>
             <p>Most people have no idea their data or creative work may have trained a commercial AI model. Through public campaigns, school partnerships, and accessible publishing, we turn legal complexity into something everyone can understand and act on.</p>
@@ -825,10 +1038,17 @@ footer{
 
       </div>
         <div class="carousel-nav">
-        <button class="car-btn" id="cprev" aria-label="Previous">&#8592;</button>
-        <span id="ccount" style="font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:600;color:#6E6E73;letter-spacing:.12em;min-width:3rem;text-align:center;">1 / 6</span>
-        <button class="car-btn" id="cnext" aria-label="Next">&#8594;</button>
-      </div>
+          <button class="carr-arrow prev" id="cprev" aria-label="Previous">
+            <svg viewBox="0 0 36 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="34" y1="10" x2="2" y2="10"/><polyline points="10,2 2,10 10,18"/>
+            </svg>
+          </button>
+          <button class="carr-arrow next" id="cnext" aria-label="Next">
+            <svg viewBox="0 0 36 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="2" y1="10" x2="34" y2="10"/><polyline points="26,2 34,10 26,18"/>
+            </svg>
+          </button>
+        </div>
     </div>
   </div>
 </section>
@@ -836,13 +1056,11 @@ footer{
 <!-- QUOTE SPLIT -->
 <div class="quote-split">
   <div class="q-photo">
-    <div class="ph ph-navy" style="height:100%">
-      <span class="ph-note">Getty: "diverse UK community group candid"</span>
-    </div>
+    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80" alt="People collaborating together" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
   </div>
   <div class="q-side">
     <blockquote>"The question is whether Parliament will act before further investment decisions make the case impossible to ignore."</blockquote>
-    <cite>The Alignment Problem, McCulloch, University of Law, April 2026</cite>
+    <cite>The Alignment Problem, McCulloch, 2026</cite>
   </div>
 </div>
 
@@ -852,7 +1070,7 @@ footer{
     <div class="fu" style="margin-bottom:3rem">
       <span class="eyebrow">AI &amp; the Law</span>
       <h2 class="display" style="max-width:580px">From first recognition<br>to <em>urgent reform.</em></h2>
-      <p class="body" style="margin-top:1.1rem;max-width:500px">Select a year below to explore how the United Kingdom and the world have grappled with the legal dimensions of artificial intelligence.</p>
+      <p class="body" style="margin-top:1.1rem;max-width:680px">Select a year below to explore how the United Kingdom and the world have grappled with the legal dimensions of artificial intelligence.</p>
     </div>
     <div class="piano-wrap fu d2">
       <div class="piano-keys" id="pianoKeys">
@@ -960,34 +1178,26 @@ footer{
   </div>
 </section>
 
-<!-- RESEARCH -->
+<!-- POLICY PLATFORM -->
 <section class="section" id="research" style="padding-top:0">
   <div class="wrap">
     <div class="research-grid">
       <div class="fu">
-        <span class="eyebrow">Founding Research</span>
-        <h2 class="display" style="margin-bottom:1.4rem">The intellectual foundation for <em>everything we do.</em></h2>
-        <p class="body">FAIR was founded on the arguments advanced in <em>The Alignment Problem</em>, a legal dissertation submitted to the University of Law in April 2026. It demonstrates, through rigorous statutory analysis and systematic legal database research across Westlaw UK, LexisNexis, and BAILII, why UK copyright law currently serves neither AI developers nor the rights holders it was designed to protect.</p>
-        <p class="body" style="margin-top:1rem">The research draws on comparative analysis of EU, Japanese, and Singaporean frameworks, and on close examination of the landmark <em>Getty Images v Stability AI</em> litigation. Critically, it goes beyond copyright to show that AI developers simultaneously face exposure under trade secrets law (<em>Vestergaard Frandsen v Bestnet</em>), database rights (<em>Ryanair v PR Aviation</em>), and UK GDPR, none of which provides the clarity the government's stated aims require.</p>
-        <p class="body" style="margin-top:1rem">This cumulative analysis produces four actionable legislative recommendations, the blueprint for FAIR's flagship campaign, and demonstrates that copyright reform alone cannot resolve the regulatory uncertainty confronting AI development in the UK.</p>
-        <div class="meta-list">
-          <div class="meta-row"><span class="meta-k">Author</span><span class="meta-v">Scott McCulloch</span></div>
-          <div class="meta-row"><span class="meta-k">Institution</span><span class="meta-v">University of Law</span></div>
-          <div class="meta-row"><span class="meta-k">Submitted</span><span class="meta-v">April 2026</span></div>
-          <div class="meta-row"><span class="meta-k">Words</span><span class="meta-v">6,588</span></div>
-          <div class="meta-row"><span class="meta-k">Focus</span><span class="meta-v">CDPA, Section 29A, Section 9(3), Trade Secrets, Database Rights, UK GDPR</span></div>
-        </div>
+        <span class="eyebrow">Policy Platform</span>
+        <h2 class="display" style="margin-bottom:1.4rem">Four reforms.<br><em>One clear ask of Parliament.</em></h2>
+        <p class="body">The UK government has stated two aims in relation to AI: to unleash the power of the technology, and to preserve the central role of intellectual property in promoting human creativity. As of 2026, it is failing at both. UK copyright law provides no safe harbour for commercial AI training, no mandatory transparency about what content has been ingested, and no effective remedy for rights holders whose work has been used without consent.</p>
+        <p class="body" style="margin-top:1rem">The problem extends beyond copyright. AI developers simultaneously face unresolved legal exposure under trade secrets law, database rights, and UK GDPR. No single reform resolves all of this, but Parliament must start somewhere. FAIR is campaigning for four concrete changes that together would bring UK law into alignment with its own stated ambitions.</p>
+        <p class="body" style="margin-top:1rem">The evidence is unambiguous. UK copyright law has not kept pace with how AI actually works. The landmark Getty Images litigation exposed a critical enforcement gap. The time for further consultation is over.</p>
       </div>
       <div class="fu d2">
         <div class="rec-card">
-          <p class="rec-eye">Chapter 6, Legislative Recommendations</p>
-          <p class="rec-title">The Alignment Problem: Artificial Intelligence, Copyright Law, and the Case for Legislative Reform in England and Wales</p>
-          <p class="rec-auth">McCulloch, S. University of Law, 2026</p>
-          <ul class="rec-items">
-            <li><span class="rec-n">6.2.1</span><span>Commercial text and data mining exception with mandatory training-data transparency, modelled on EU DSM Directive Article 4 and AI Act Article 53.</span></li>
-            <li><span class="rec-n">6.2.2</span><span>Reform of Section 9(3) as a producer right aligned with the post-Infopaq originality standard, targeted correction, not removal.</span></li>
-            <li><span class="rec-n">6.2.3</span><span>Market-access provision requiring UK copyright compliance for all AI models commercialised domestically, regardless of where training occurred.</span></li>
-            <li><span class="rec-n">6.2.4</span><span>Comprehensive review of trade secrets, database rights, and UK GDPR as applied to AI training at scale.</span></li>
+          <p class="rec-eye">FAIR's Four Legislative Demands</p>
+          <p class="rec-title">What we are asking Parliament to do</p>
+          <ul class="rec-items" style="margin-top:.5rem">
+            <li><span class="rec-n">01</span><span><strong>Commercial TDM exception</strong> with mandatory training-data transparency. AI developers must be able to train on content legally, and rights holders must be able to verify that their work was used and opt out.</span></li>
+            <li><span class="rec-n">02</span><span><strong>Reform Section 9(3)</strong> as a producer right rather than remove it. Removing it without replacement creates a legal vacuum around AI-generated works that serves nobody.</span></li>
+            <li><span class="rec-n">03</span><span><strong>Market-access provision</strong> closing the extraterritoriality gap. AI models trained offshore and commercialised in the UK must comply with UK copyright obligations, regardless of where training occurred.</span></li>
+            <li><span class="rec-n">04</span><span><strong>Comprehensive data governance review</strong> covering trade secrets, database rights, and UK GDPR as applied to AI training at scale. Copyright reform alone is not enough.</span></li>
           </ul>
         </div>
       </div>
@@ -996,222 +1206,239 @@ footer{
 </section>
 
 <!-- RESOURCES -->
-<section class="section" id="resources">
+<section class="section" id="resources" style="background:#ffffff">
   <div class="wrap">
-    <div class="res-intro fu">
+    <div class="fu" style="margin-bottom:3rem">
       <span class="eyebrow">Key Resources</span>
       <h2 class="display">The legal landscape,<br><em>clearly mapped.</em></h2>
-      <p class="body" style="margin-top:1.1rem;max-width:500px">The primary legislation, case law, and official reports that define the current framework, and that FAIR is working to change.</p>
     </div>
 
-    <div class="res-cols fu d2">
-
-      <!-- Column 1: Legislation -->
-      <div class="res-col">
-        <div class="res-col-head">
-          <span class="res-col-title">Legislation</span>
-          <span class="res-col-sub">Acts and Instruments</span>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Copyright, Designs and Patents Act 1988</div>
-          <div class="res-item-sub">Section 29A (TDM) and Section 9(3) (Computer-generated works). The foundational UK copyright statute.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">UK Primary</span>
-            <a class="res-btn" href="https://www.legislation.gov.uk/ukpga/1988/48/contents" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Enterprise and Regulatory Reform Act 2013</div>
-          <div class="res-item-sub">Section 75 inserted the text and data mining exception into the CDPA, restricted to non-commercial research only.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">UK Primary</span>
-            <a class="res-btn" href="https://www.legislation.gov.uk/ukpga/2013/24/section/75" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">EU DSM Directive 2019/790</div>
-          <div class="res-item-sub">Articles 3 to 4, mandatory non-commercial TDM exception and permissive commercial exception with opt-out. The comparator the UK declined to follow.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">European Union</span>
-            <a class="res-btn" href="https://eur-lex.europa.eu/eli/dir/2019/790/oj" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">EU AI Act 2024/1689</div>
-          <div class="res-item-sub">Article 53 requires AI model providers to publish summaries of training content. No equivalent obligation exists in UK law.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">European Union</span>
-            <a class="res-btn" href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">UK GDPR and Data Protection Act 2018</div>
-          <div class="res-item-sub">The personal data framework governing AI training on data relating to identified individuals, including special category data.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">UK Primary</span>
-            <a class="res-btn" href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Copyright and Rights in Databases Regulations 1997</div>
-          <div class="res-item-sub">SI 1997/3032. Database right protection for substantial investment in obtaining, verifying, or presenting contents.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">UK Secondary</span>
-            <a class="res-btn" href="https://www.legislation.gov.uk/uksi/1997/3032/contents/made" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 2: Case Law -->
-      <div class="res-col">
-        <div class="res-col-head">
-          <span class="res-col-title">Case Law</span>
-          <span class="res-col-sub">Key Decisions</span>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Getty Images v Stability AI [2025] EWHC 2863 (Ch)</div>
-          <div class="res-item-sub">First AI training copyright trial in the UK. Model weights held not to be infringing copies. Primary claim abandoned for lack of UK training evidence. Appeal pending.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">High Court 2025</span>
-            <a class="res-btn" href="https://www.bailii.org/ew/cases/EWHC/Ch/2025/2863.html" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Thaler v Comptroller-General [2023] UKSC 49</div>
-          <div class="res-item-sub">Supreme Court holds unanimously that an AI system cannot be named as a patent inventor. The broader normative question referred explicitly to Parliament.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">Supreme Court 2023</span>
-            <a class="res-btn" href="https://www.bailii.org/uk/cases/UKSC/2023/49.html" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Emotional Perception AI v Comptroller [2026] UKSC 3</div>
-          <div class="res-item-sub">Supreme Court overrules Aerotel and aligns UK patent eligibility with EPO's G1/19 approach. Inventorship under Thaler remains unresolved.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">Supreme Court 2026</span>
-            <a class="res-btn" href="https://www.bailii.org/uk/cases/UKSC/2026/3.html" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">THJ Systems Ltd v Sheridan [2023] EWCA Civ 1354</div>
-          <div class="res-item-sub">Leading post-Brexit authority on copyright originality. The only post-2020 case to engage Section 9(3), resolved on conventional authorial principles.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">Court of Appeal 2023</span>
-            <a class="res-btn" href="https://www.bailii.org/ew/cases/EWCA/Civ/2023/1354.html" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Vestergaard Frandsen v Bestnet Europe [2013] UKSC 31</div>
-          <div class="res-item-sub">Supreme Court confirms liability for misuse of confidential information does not require conscious appreciation of its confidential character. Relevant to trade secrets encoded in AI model weights.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">Supreme Court 2013</span>
-            <a class="res-btn" href="https://www.bailii.org/uk/cases/UKSC/2013/31.html" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Ryanair v PR Aviation BV (C-30/14) [2015] ECDR 21</div>
-          <div class="res-item-sub">CJEU considers what constitutes 'extraction' for database right purposes. Whether a training run processing an entire database constitutes extraction of a substantial part remains judicially untested in the AI context.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">CJEU 2015</span>
-            <a class="res-btn" href="https://curia.europa.eu/juris/document/document.jsf?docid=162263&doclang=EN" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Infopaq v Danske Dagblades [2009] ECR I-6569</div>
-          <div class="res-item-sub">CJEU establishes that copyright protection requires the author's own intellectual creation, creating the post-Infopaq contradiction with Section 9(3) that persists in UK law.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">CJEU 2009</span>
-            <a class="res-btn" href="https://curia.europa.eu/juris/document/document.jsf?docid=72482&doclang=EN" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 3: Reports -->
-      <div class="res-col">
-        <div class="res-col-head">
-          <span class="res-col-title">Reports and Research</span>
-          <span class="res-col-sub">Official and Academic</span>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Report on Copyright and AI (March 2026)</div>
-          <div class="res-item-sub">DSIT and DCMS, CP 2602959. The government's most authoritative review of AI and copyright. Acknowledges the structural gaps but proposes no legislation.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">UK Government 2026</span>
-            <a class="res-btn" href="https://www.gov.uk/government/publications/report-on-copyright-and-artificial-intelligence" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">AI Opportunities Action Plan (January 2025)</div>
-          <div class="res-item-sub">HM Government's pro-innovation approach to AI regulation, the context against which FAIR's founding research measures the copyright framework's inadequacy.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">UK Government 2025</span>
-            <a class="res-btn" href="https://www.gov.uk/government/publications/ai-opportunities-action-plan" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Copyright and AI: Consultation (December 2024)</div>
-          <div class="res-item-sub">IPO consultation canvassing removal of Section 9(3). No replacement protection proposed. FAIR's position: reform, not removal.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">IPO 2024</span>
-            <a class="res-btn" href="https://www.gov.uk/government/consultations/copyright-and-artificial-intelligence" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">ICO: Generative AI, Second Call for Evidence (2024)</div>
-          <div class="res-item-sub">ICO finds the lawful basis for processing special category personal data in AI training remains unresolved, a gap FAIR's Personal Data Rights project addresses directly.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">ICO 2024</span>
-            <a class="res-btn" href="https://ico.org.uk/about-the-ico/what-we-do/our-work-on-artificial-intelligence/generative-ai-second-call-for-evidence/" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">ICO Enforcement Notice: Clearview AI Inc (May 2022)</div>
-          <div class="res-item-sub">The closest domestic precedent on unlawful facial recognition data processing. Cited in the dissertation as the reference point for UK GDPR enforcement against AI companies using personal data without a lawful basis.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">ICO 2022</span>
-            <a class="res-btn" href="https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2022/05/ico-fines-facial-recognition-database-company-clearview-ai-inc/" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Parish, Time to Repeal Section 9(3)? (2025) IPQ</div>
-          <div class="res-item-sub">Archival scholarship on the CDPA's drafting history. Reveals the British Computer Society's original objections and clarifies legislative intent behind Section 9(3).</div>
-          <div class="res-item-foot">
-            <span class="res-tag">Academic 2025</span>
-            <a class="res-btn" href="https://www.legislation.gov.uk/ukpga/1988/48/section/9" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-        <div class="res-item">
-          <div class="res-item-name">Hargreaves, Digital Opportunity (2011)</div>
-          <div class="res-item-sub">The independent review that first recommended a TDM exception. The foundation of Section 29A and the reform programme that remains unfinished fifteen years later.</div>
-          <div class="res-item-foot">
-            <span class="res-tag">Independent Review 2011</span>
-            <a class="res-btn" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/32563/ipreview-finalreport.pdf" target="_blank" rel="noopener">View <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg></a>
-          </div>
-        </div>
-      </div>
-
+    <!-- Tab buttons -->
+    <div class="res-tabs fu" role="tablist">
+      <button class="res-tab active" data-tab="leg" role="tab" aria-selected="true">Legislation</button>
+      <button class="res-tab" data-tab="case" role="tab" aria-selected="false">Case Law</button>
+      <button class="res-tab" data-tab="rep" role="tab" aria-selected="false">Reports &amp; Guidance</button>
     </div>
+
+    <!-- Legislation -->
+    <div class="res-panel active fu d2" id="tab-leg" role="tabpanel">
+      <div class="res-cards">
+        <a class="res-rcard" href="https://www.legislation.gov.uk/ukpga/1988/48/contents" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="16" x2="32" y2="16"/><line x1="16" y1="22" x2="32" y2="22"/><line x1="16" y1="28" x2="24" y2="28"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">CDPA 1988</div>
+            <div class="res-rcard-sub">Copyright, Designs and Patents Act — Section 29A &amp; Section 9(3)</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.legislation.gov.uk/ukpga/2013/24/section/75" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="16" x2="32" y2="16"/><line x1="16" y1="22" x2="32" y2="22"/><line x1="16" y1="28" x2="24" y2="28"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Enterprise &amp; Regulatory Reform Act 2013</div>
+            <div class="res-rcard-sub">Section 75 — inserted the TDM exception into the CDPA</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://eur-lex.europa.eu/eli/dir/2019/790/oj" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="24" cy="24" r="16"/><path d="M24 8c-4 4-6 10-6 16s2 12 6 16M24 8c4 4 6 10 6 16s-2 12-6 16M8 24h32"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">EU DSM Directive 2019/790</div>
+            <div class="res-rcard-sub">Articles 3–4 — commercial TDM exception with opt-out. The framework the UK walked away from.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="8" y="14" width="32" height="24" rx="3"/><path d="M18 14v-4M30 14v-4M14 30h4M30 30h4M22 26h4"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">EU AI Act 2024/1689</div>
+            <div class="res-rcard-sub">Article 53 — mandatory training-data disclosure. No UK equivalent exists.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="12" y="22" width="24" height="18" rx="3"/><path d="M16 22v-6a8 8 0 0 1 16 0v6"/><circle cx="24" cy="31" r="2"/><line x1="24" y1="33" x2="24" y2="36"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">UK GDPR &amp; Data Protection Act 2018</div>
+            <div class="res-rcard-sub">The personal data framework governing AI training. Lawful basis for AI use remains unresolved.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.legislation.gov.uk/uksi/1997/3032/contents/made" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="24" cy="16" rx="14" ry="6"/><path d="M10 16v8c0 3.3 6.3 6 14 6s14-2.7 14-6v-8"/><path d="M10 24v8c0 3.3 6.3 6 14 6s14-2.7 14-6v-8"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Database Regulations 1997</div>
+            <div class="res-rcard-sub">SI 1997/3032 — database right protection. Highly relevant to AI training on structured datasets.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Case Law -->
+    <div class="res-panel" id="tab-case" role="tabpanel" hidden>
+      <div class="res-cards">
+        <a class="res-rcard" href="https://www.bailii.org/ew/cases/EWHC/Ch/2025/2863.html" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="42"/><line x1="8" y1="16" x2="40" y2="16"/><path d="M8 16 L6 26 H14 L12 16"/><path d="M40 16 L42 26 H34 L36 16"/><line x1="18" y1="42" x2="30" y2="42"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Getty Images v Stability AI [2025]</div>
+            <div class="res-rcard-sub">The UK's first AI copyright trial. Model weights are not infringing copies. Appeal pending.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.bailii.org/uk/cases/UKSC/2023/49.html" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="42"/><line x1="8" y1="16" x2="40" y2="16"/><path d="M8 16 L6 26 H14 L12 16"/><path d="M40 16 L42 26 H34 L36 16"/><line x1="18" y1="42" x2="30" y2="42"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Thaler v Comptroller-General [2023] UKSC 49</div>
+            <div class="res-rcard-sub">AI cannot be named as a patent inventor. A matter for Parliament, not the courts.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.bailii.org/uk/cases/UKSC/2026/3.html" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="42"/><line x1="8" y1="16" x2="40" y2="16"/><path d="M8 16 L6 26 H14 L12 16"/><path d="M40 16 L42 26 H34 L36 16"/><line x1="18" y1="42" x2="30" y2="42"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Emotional Perception AI v Comptroller [2026] UKSC 3</div>
+            <div class="res-rcard-sub">UK patent eligibility for AI inventions aligned with EPO approach. Inventorship under Thaler unresolved.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.bailii.org/ew/cases/EWCA/Civ/2023/1354.html" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="42"/><line x1="8" y1="16" x2="40" y2="16"/><path d="M8 16 L6 26 H14 L12 16"/><path d="M40 16 L42 26 H34 L36 16"/><line x1="18" y1="42" x2="30" y2="42"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">THJ Systems v Sheridan [2023] EWCA Civ 1354</div>
+            <div class="res-rcard-sub">The leading post-Brexit authority on copyright originality in the UK.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.bailii.org/uk/cases/UKSC/2013/31.html" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="42"/><line x1="8" y1="16" x2="40" y2="16"/><path d="M8 16 L6 26 H14 L12 16"/><path d="M40 16 L42 26 H34 L36 16"/><line x1="18" y1="42" x2="30" y2="42"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Vestergaard Frandsen v Bestnet [2013] UKSC 31</div>
+            <div class="res-rcard-sub">Trade secrets misuse does not require conscious awareness. Relevant to AI model weight encoding.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://curia.europa.eu/juris/document/document.jsf?docid=72482&doclang=EN" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="24" y1="6" x2="24" y2="42"/><line x1="8" y1="16" x2="40" y2="16"/><path d="M8 16 L6 26 H14 L12 16"/><path d="M40 16 L42 26 H34 L36 16"/><line x1="18" y1="42" x2="30" y2="42"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Infopaq v Danske Dagblades [2009] ECR I-6569</div>
+            <div class="res-rcard-sub">Copyright requires the author's own intellectual creation. Creates a doctrinal tension in UK law.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Reports -->
+    <div class="res-panel" id="tab-rep" role="tabpanel" hidden>
+      <div class="res-cards">
+        <a class="res-rcard" href="https://www.gov.uk/government/publications/report-on-copyright-and-artificial-intelligence" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="32" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Report on Copyright and AI (March 2026)</div>
+            <div class="res-rcard-sub">DSIT &amp; DCMS. Acknowledges the structural gaps. Proposes no legislation. FAIR was founded in response.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.gov.uk/government/publications/ai-opportunities-action-plan" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="32" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">AI Opportunities Action Plan (January 2025)</div>
+            <div class="res-rcard-sub">HM Government's pro-innovation AI agenda — the framework FAIR holds the government accountable to.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://www.gov.uk/government/consultations/copyright-and-artificial-intelligence" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="32" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Copyright and AI: Consultation (December 2024)</div>
+            <div class="res-rcard-sub">IPO. Floated removing Section 9(3) with no replacement. FAIR's position: reform, not removal.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://ico.org.uk/about-the-ico/what-we-do/our-work-on-artificial-intelligence/generative-ai-second-call-for-evidence/" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="32" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">ICO: Generative AI — Second Call for Evidence (2024)</div>
+            <div class="res-rcard-sub">Confirms the lawful basis for processing personal data in AI training remains unresolved in the UK.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2022/05/ico-fines-facial-recognition-database-company-clearview-ai-inc/" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="32" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">ICO v Clearview AI (May 2022)</div>
+            <div class="res-rcard-sub">The closest UK precedent for ICO enforcement against an AI company processing personal data unlawfully.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+        <a class="res-rcard" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/32563/ipreview-finalreport.pdf" target="_blank" rel="noopener">
+          <div class="res-rcard-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="10" y="6" width="28" height="36" rx="3"/><line x1="16" y1="18" x2="32" y2="18"/><line x1="16" y1="24" x2="32" y2="24"/><line x1="16" y1="30" x2="24" y2="30"/></svg>
+          </div>
+          <div class="res-rcard-body">
+            <div class="res-rcard-title">Hargreaves — Digital Opportunity (2011)</div>
+            <div class="res-rcard-sub">The independent review that recommended the TDM exception. Fifteen years on, the reform remains unfinished.</div>
+          </div>
+          <div class="res-rcard-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- CONTACT FORM -->
-<section class="section" id="contact" style="padding-top:0">
+<section class="section" id="contact">
   <div class="wrap">
     <div class="fu" style="text-align:center;margin-bottom:3rem">
       <span class="eyebrow">Get In Touch</span>
       <h2 class="display">Join the movement.<br><em>Make your voice heard.</em></h2>
-      <p class="body" style="margin-top:1rem;max-width:480px;margin-left:auto;margin-right:auto">Whether you are a creator, legal professional, policy maker, or someone whose rights have been affected, we want to hear from you.</p>
+      <p class="body" style="margin-top:1rem;max-width:680px;margin-left:auto;margin-right:auto">Whether you are a creator, legal professional, policy maker, or someone whose rights have been affected, we want to hear from you.</p>
     </div>
     <div class="fu d2">
       <div class="contact-wrap">
         <div id="contactForm">
           <div class="form-row">
             <div class="form-group">
-              <label for="fname">Full Name <span style="color:#F5C200">*</span></label>
+              <label for="fname">Full Name <span style="color:#0D1B2E;font-weight:700">*</span></label>
               <input type="text" id="fname" placeholder="Your name" required>
             </div>
             <div class="form-group">
-              <label for="femail">Email Address <span style="color:#F5C200">*</span></label>
+              <label for="femail">Email Address <span style="color:#0D1B2E;font-weight:700">*</span></label>
               <input type="email" id="femail" placeholder="your@email.com" required>
             </div>
           </div>
@@ -1221,7 +1448,7 @@ footer{
               <input type="text" id="forg" placeholder="Optional">
             </div>
             <div class="form-group">
-              <label for="fsubject">Subject <span style="color:#F5C200">*</span></label>
+              <label for="fsubject">Subject <span style="color:#0D1B2E;font-weight:700">*</span></label>
               <select id="fsubject" required>
                 <option value="">Select a topic</option>
                 <option>Legislative Reform</option>
@@ -1236,7 +1463,7 @@ footer{
             </div>
           </div>
           <div class="form-group">
-            <label for="fmsg">Message <span style="color:#F5C200">*</span></label>
+            <label for="fmsg">Message <span style="color:#0D1B2E;font-weight:700">*</span></label>
             <textarea id="fmsg" rows="5" placeholder="Tell us about your situation or how you would like to get involved..." required></textarea>
           </div>
           <div class="form-check">
@@ -1257,11 +1484,10 @@ footer{
 
 <!-- CLOSING -->
 <div class="closing">
-  <div class="ph ph-dusk" style="height:100%">
-    <span class="ph-note">Getty: "Houses of Parliament night Thames reflection"</span>
-  </div>
-  <div class="closing-over">
-    <h2>Rights don't enforce themselves.<br><strong>That's why FAIR exists.</strong></h2>
+  <div class="closing-inner">
+    <div class="closing-rule"></div>
+    <h2>The law should protect you from AI.<br>Right now, it does not.<br><em>We are changing that.</em></h2>
+    <p class="closing-sub">Foundation for Artificial Intelligence Rights &nbsp;&middot;&nbsp; United Kingdom &nbsp;&middot;&nbsp; Est. 2026</p>
   </div>
 </div>
 
@@ -1274,6 +1500,47 @@ footer{
   </div>
   <div class="foot-right">For enquiries, contact the founding team.</div>
 </footer>
+
+<!-- ACCESSIBILITY TOOLBAR (CIPA-inspired) -->
+<button class="a11y-btn" id="a11yBtn" aria-label="Accessibility options" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <circle cx="12" cy="5" r="2"/>
+    <path d="M12 7v6M9 10l-2 5M15 10l2 5M9 22l3-5 3 5"/>
+    <path d="M7 10h10"/>
+  </svg>
+</button>
+<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Accessibility settings">
+  <div class="a11y-title">Accessibility</div>
+  <div class="a11y-row">
+    <span class="a11y-row-label">Text size</span>
+    <div class="a11y-controls">
+      <button class="a11y-ctrl" id="textDown" aria-label="Decrease text size">A-</button>
+      <button class="a11y-ctrl" id="textUp" aria-label="Increase text size">A+</button>
+    </div>
+  </div>
+  <div class="a11y-row">
+    <span class="a11y-row-label">High contrast</span>
+    <div class="a11y-controls">
+      <button class="a11y-toggle" id="contrastToggle" aria-pressed="false" aria-label="Toggle high contrast"></button>
+    </div>
+  </div>
+  <div class="a11y-row">
+    <span class="a11y-row-label">Dyslexia font</span>
+    <div class="a11y-controls">
+      <button class="a11y-toggle" id="dyslexiaToggle" aria-pressed="false" aria-label="Toggle dyslexia-friendly font"></button>
+    </div>
+  </div>
+</div>
+
+
+<!-- COOKIE CONSENT -->
+<div class="cookie-bar" id="cookieBar" role="dialog" aria-label="Cookie consent">
+  <p class="cookie-text">We use essential cookies to make this site work. We'd also like to set optional analytics cookies to help us improve it. We won't set them without your consent. <a href="#" onclick="return false">Learn more</a></p>
+  <div class="cookie-btns">
+    <button class="cookie-btn cookie-btn-reject" id="cookieReject">Reject optional</button>
+    <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept all</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -1296,12 +1563,10 @@ fus.forEach(function(el){ fuObs.observe(el); });
 /* ── CAROUSEL ── */
 var track  = document.getElementById('ctrack');
 var cards  = track.querySelectorAll('.proj-card');
-var ccount = document.getElementById('ccount');
 var cur    = 0;
 var total  = cards.length;
 
 function updateCount(){
-  if(ccount) ccount.textContent = (cur + 1) + ' / ' + total;
 }
 
 function getCardW(){
@@ -1375,6 +1640,72 @@ submit.addEventListener('click', function(){
 });
 
 })();
+
+/* ── ACCESSIBILITY TOOLBAR ── */
+(function(){
+  var btn = document.getElementById('a11yBtn');
+  var panel = document.getElementById('a11yPanel');
+  var body = document.body;
+  var fontSize = 100;
+
+  btn.addEventListener('click', function(){
+    var open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+
+  document.addEventListener('click', function(e){
+    if(!btn.contains(e.target) && !panel.contains(e.target)){
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.getElementById('textUp').addEventListener('click', function(){
+    if(fontSize < 130){ fontSize += 10; body.style.fontSize = fontSize + '%'; }
+  });
+  document.getElementById('textDown').addEventListener('click', function(){
+    if(fontSize > 80){ fontSize -= 10; body.style.fontSize = fontSize + '%'; }
+  });
+
+  var contrastOn = false;
+  document.getElementById('contrastToggle').addEventListener('click', function(){
+    contrastOn = !contrastOn;
+    body.classList.toggle('a11y-contrast', contrastOn);
+    this.classList.toggle('on', contrastOn);
+    this.setAttribute('aria-pressed', contrastOn);
+  });
+
+  var dyslexiaOn = false;
+  document.getElementById('dyslexiaToggle').addEventListener('click', function(){
+    dyslexiaOn = !dyslexiaOn;
+    body.classList.toggle('a11y-dyslexia', dyslexiaOn);
+    this.classList.toggle('on', dyslexiaOn);
+    this.setAttribute('aria-pressed', dyslexiaOn);
+  });
+})();
+
+
+(function(){
+  var items = [
+    'FAIR launches six-project advocacy platform for UK AI rights reform',
+    'Section 29A CDPA: never once applied by a court in over 30 years',
+    'Getty Images v Stability AI appeal pending — Parliament cannot wait',
+    'FAIR calls for mandatory training-data transparency obligations'
+  ];
+  var el = document.getElementById('latestText');
+  if(!el) return;
+  var i = 0;
+  setInterval(function(){
+    el.style.opacity = '0';
+    setTimeout(function(){
+      i = (i + 1) % items.length;
+      el.textContent = items[i];
+      el.style.opacity = '1';
+    }, 300);
+  }, 5000);
+  el.style.transition = 'opacity .3s ease';
+})();
+
 </script>
 </body>
 </html>
