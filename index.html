@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Foundation for Artificial Intelligence Rights (FAIR)</title>
+<title>FAIR — The Foundation for Artificial Intelligence Rights</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@ img { display: block; max-width: 100%; }
 ───────────────────────────────────────────── */
 nav {
   position: fixed; top: 32px; left: 0; right: 0; z-index: 999;
-  height: 76px;
+  height: 88px;
   display: flex; align-items: center;
   padding: 0 3.5rem;
   background: rgba(255,255,255,.96);
@@ -85,13 +85,13 @@ nav {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   transition: height .3s;
 }
-nav.scrolled { height: 64px; }
+nav.scrolled { height: 72px; }
 .nav-pill {
   display: flex; align-items: center; justify-content: space-between;
   width: 100%;
 }
 .logo {
-  font-size: 1.25rem; font-weight: 700; letter-spacing: .04em;
+  font-size: 2.2rem; font-weight: 700; letter-spacing: .04em;
   color: var(--ink); display: flex; align-items: center;
   font-family: "Playfair Display", Georgia, serif;
 }
@@ -225,6 +225,28 @@ nav.scrolled { height: 64px; }
   color: rgba(255,255,255,.7); transition: border-color .2s;
 }
 .hero-scroll:hover .hero-scroll-circle { border-color: rgba(255,255,255,.8); }
+
+/* ─────────────────────────────────────────────
+   SHARED
+───────────────────────────────────────────── */
+.section { padding: 6rem 2rem; }
+.wrap { max-width: 1080px; margin: 0 auto; }
+.eyebrow {
+  display: block; font-size: .64rem; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--grey);
+  margin-bottom: .9rem;
+}
+.h2 {
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 400; line-height: 1.15; color: var(--ink);
+  letter-spacing: -.01em;
+}
+.h2 em { font-style: italic; }
+.h2 strong { font-weight: 700; font-style: normal; }
+.body-text {
+  font-size: .97rem; color: var(--grey); line-height: 1.8;
+}
 
 /* ─────────────────────────────────────────────
    DARK BAND
